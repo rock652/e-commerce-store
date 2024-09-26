@@ -42,8 +42,6 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-const User = mongoose.model("User", userSchema);
-
 //re-save book to hash password before saving to database
 
 userSchema.pre("save", async function (next) {
@@ -59,8 +57,9 @@ userSchema.pre("save", async function (next) {
 });
 
 //compaare username and password
-userSchema.methods.comparePassword = async (this.password, salt) {
-    return bcrypt.compare(password, this.password)
-}
+userSchema.methods.comparePassword = async function (password) {
+  return bcrypt.compare(password, this.password);
+};
+const User = mongoose.model("User", userSchema);
 
 export default User;
